@@ -1,17 +1,20 @@
 package com.devsuperior.dslearnbds.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_course")
-public class Course  implements Serializable {
+public class Course implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,16 +25,19 @@ public class Course  implements Serializable {
 	private String imgUri;
 	private String imgGrayUri;
 	
+	@OneToMany(mappedBy = "course")
+	private List<Offer> offers = new ArrayList<>();
+	
 	public Course() {
 		
 	}
 
-	public Course(Long id, String name, String imgURI, String imgGrayURI) {
+	public Course(Long id, String name, String imgUri, String imgGrayUri) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.imgURI = imgURI;
-		this.imgGrayURI = imgGrayURI;
+		this.imgUri = imgUri;
+		this.imgGrayUri = imgGrayUri;
 	}
 
 	public Long getId() {
@@ -51,24 +57,28 @@ public class Course  implements Serializable {
 	}
 
 	public String getImgURI() {
-		return imgURI;
+		return imgUri;
 	}
 
-	public void setImgURI(String imgURI) {
-		this.imgURI = imgURI;
+	public void setImgURI(String imgUri) {
+		this.imgUri = imgUri;
 	}
 
 	public String getImgGrayURI() {
-		return imgGrayURI;
+		return imgGrayUri;
 	}
 
-	public void setImgGrayURI(String imgGrayURI) {
-		this.imgGrayURI = imgGrayURI;
+	public void setImgGrayURI(String imgGrayUri) {
+		this.imgGrayUri = imgGrayUri;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+
+	public List<Offer> getOffers() {
+		return offers;
 	}
 
 	@Override
